@@ -1,9 +1,10 @@
 import { EndpointId, endpointIdToNetwork } from '@layerzerolabs/lz-definitions'
 import { getDeploymentAddressAndAbi } from '@layerzerolabs/lz-evm-sdk-v2'
-import { ethers } from "hardhat";
-import { NETWORKS, CONTRACT_CONFIG } from "../utils/consts/network.const";
+import { NETWORKS } from "../utils/consts/network.const";
 
 async function main() {
+    const { ethers } = require("hardhat");
+
     const [signer] = await ethers.getSigners();
     console.log(">>> Signer address >>>", signer.address);
     
