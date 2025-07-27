@@ -2,7 +2,7 @@ import { generateConnectionsConfig } from '@layerzerolabs/metadata-tools'
 import { 
     getAllDeployedContracts, 
     createPathways 
-} from './utils/layerzero.helper'
+} from './utils/helpers/layerzero.helper'
 
 export default async function () {
     const pathways = createPathways()
