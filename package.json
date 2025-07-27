@@ -11,8 +11,8 @@
     "lint:fix": "eslint --fix '**/*.{js,ts,json}' && prettier --write . && solhint 'contracts/**/*.sol'",
     "lint:js": "eslint '**/*.{js,ts,json}' && prettier --check .",
     "lint:sol": "solhint 'contracts/**/*.sol'",
-    "deploy:sepolia": "npx hardhat deploy --network sepolia-testnet --tags MyOFTUpgradeable",
-    "deploy:base": "npx hardhat deploy --network base-testnet --tags MyOFTUpgradeable"
+    "deploy:sepolia": "npx hardhat deploy --network sepolia-testnet --tags KRWIN",
+    "deploy:base": "npx hardhat deploy --network base-testnet --tags KRWIN"
   },
   "resolutions": {
     "ethers": "^5.7.2",
@@ -77,5 +77,8 @@
   "overrides": {
     "ethers": "^5.7.2",
     "hardhat-deploy": "^0.12.1"
+  },
+  "dependencies": {
+    "prettier-plugin-solidity": "^2.1.0"
   }
 }
