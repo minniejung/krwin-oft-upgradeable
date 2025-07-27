@@ -17,11 +17,7 @@ import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import './tasks/sendOFT'
-import './tasks/upgrade'
-import './tasks/verify-upgrade'
-import './tasks/check-admin'
-
+import './tasks'
 
 // If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
 const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK_1

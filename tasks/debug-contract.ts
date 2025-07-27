@@ -1,7 +1,7 @@
 import { task } from "hardhat/config";
 import { NETWORKS, CONTRACT_CONFIG } from "../utils/consts/network.const";
 
-task("debug-contract", "Debug contract state and configuration")
+task("debug:contract", "Debug contract state and configuration")
   .setAction(async (taskArgs, hre) => {
     const [signer] = await hre.ethers.getSigners();
     console.log(">>> Signer address >>>", signer.address);

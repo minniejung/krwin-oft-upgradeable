@@ -1,7 +1,7 @@
 import { task } from "hardhat/config";
 import { NETWORKS, CONTRACT_CONFIG } from "../utils/consts/network.const";
 
-task("check-balance", "Check token balance and contract info")
+task("check:balance", "Check token balance and contract info")
   .addOptionalParam("address", "Address to check balance for")
   .setAction(async (taskArgs, hre) => {
     const [signer] = await hre.ethers.getSigners(); 
