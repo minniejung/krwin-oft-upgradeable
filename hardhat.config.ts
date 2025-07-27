@@ -17,20 +17,12 @@ import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import './tasks/sendOFT'
-
-// Set your preferred authentication method
-//
-// If you prefer using a mnemonic, set a MNEMONIC environment variable
-// to a valid mnemonic
-const MNEMONIC = process.env.MNEMONIC
+import './tasks'
 
 // If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
-const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK
+const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK_1
 
-const accounts: HttpNetworkAccountsUserConfig | undefined = MNEMONIC
-    ? { mnemonic: MNEMONIC }
-    : PRIVATE_KEY
+const accounts: HttpNetworkAccountsUserConfig | undefined = PRIVATE_KEY
       ? [PRIVATE_KEY]
       : undefined
 
@@ -82,7 +74,12 @@ const config: HardhatUserConfig = {
         },
         'base-testnet': {
             eid: EndpointId.BASESEP_V2_TESTNET,
-            url: process.env.RPC_URL_BASE_TESTNET || 'https://sepolia.base.org',
+            url: process.env.RPC_URL_BASE_TESTNET || 'https://base-sepolia.publicnode.com',
+            accounts,
+        },
+        'kaia-testnet': {
+            eid: EndpointId.KLAYTN_V2_TESTNET,
+            url: process.env.RPC_URL_KAIA_TESTNET || 'https://rpc.testnet.kaia.network',
             accounts,
         },
         hardhat: {
