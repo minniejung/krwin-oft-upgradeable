@@ -6,6 +6,9 @@ async function main() {
     const [signer] = await ethers.getSigners()
     console.log('>>> Signer address >>>', signer.address)
 
+    const newOwnerAddress = '0x...' // new owner address
+    console.log('>>> New owner address >>>', newOwnerAddress)
+
     const network = await ethers.provider.getNetwork()
     console.log('>>> Network chainId >>>', network.chainId)
 
@@ -24,7 +27,7 @@ async function main() {
         const currentOwner = await contract.owner()
         console.log('>>> Current owner >>>', currentOwner)
 
-        if (currentOwner === signer.address) {
+        if (currentOwner === newOwnerAddress) {
             console.log('>>> Owner already set correctly >>> YAY!')
             return
         }
@@ -39,8 +42,8 @@ async function main() {
 
         console.log('>>> Admin role confirmed >>> YAY!')
 
-        console.log('>>> Setting owner to signer address... >>>')
-        const tx = await contract.transferOwnership(signer.address)
+        console.log(`>>> Setting owner to ${newOwnerAddress}... >>>`)
+        const tx = await contract.transferOwnership(newOwnerAddress)
         await tx.wait()
 
         console.log('>>> Owner set successfully >>> YAY!')
