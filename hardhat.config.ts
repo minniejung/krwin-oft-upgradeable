@@ -22,9 +22,7 @@ import './tasks'
 // If you prefer to be authenticated using a private key, set a PRIVATE_KEY environment variable
 const PRIVATE_KEY = process.env.PRIVATE_KEY_METAMASK_1
 
-const accounts: HttpNetworkAccountsUserConfig | undefined = PRIVATE_KEY
-      ? [PRIVATE_KEY]
-      : undefined
+const accounts: HttpNetworkAccountsUserConfig | undefined = PRIVATE_KEY ? [PRIVATE_KEY] : undefined
 
 if (accounts == null) {
     console.warn(
@@ -62,11 +60,6 @@ const config: HardhatUserConfig = {
         //     url: process.env.RPC_URL_KAIA_TESTNET || 'https://rpc.testnet.kaia.network',
         //     accounts,
         // },
-        // 'fuji-testnet': {
-        //     eid: EndpointId.AVALANCHE_V2_TESTNET,
-        //     url: process.env.RPC_URL_FUJI_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
-        //     accounts,
-        // },
         'sepolia-testnet': {
             eid: EndpointId.SEPOLIA_V2_TESTNET,
             url: process.env.RPC_URL_SEPOLIA_TESTNET || 'https://rpc.sepolia.org',
@@ -77,10 +70,20 @@ const config: HardhatUserConfig = {
             url: process.env.RPC_URL_BASE_TESTNET || 'https://base-sepolia.publicnode.com',
             accounts,
         },
-        'kaia-testnet': {
-            eid: EndpointId.KLAYTN_V2_TESTNET,
-            url: process.env.RPC_URL_KAIA_TESTNET || 'https://rpc.testnet.kaia.network',
-            accounts,
+        'fuji-testnet': {
+            eid: EndpointId.AVALANCHE_V2_TESTNET,
+            url: process.env.RPC_URL_FUJI_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
+            accounts: [process.env.PRIVATE_KEY_METAMASK_2 || ''],
+        },
+        'hyper-testnet': {
+            eid: EndpointId.HYPERLIQUID_V2_TESTNET,
+            url: process.env.RPC_URL_HYPER_TESTNET || 'https://rpc.testnet.hyper.xyz',
+            accounts: [process.env.PRIVATE_KEY_METAMASK_1 || ''],
+        },
+        mainnet: {
+            eid: EndpointId.ETHEREUM_V2_MAINNET,
+            url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth',
+            accounts: [process.env.PRIVATE_KEY_METAMASK_1 || ''],
         },
         hardhat: {
             // Need this for testing because TestHelperOz5.sol is exceeding the compiled contract size limit

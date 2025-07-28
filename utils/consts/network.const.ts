@@ -1,7 +1,7 @@
-import { EndpointId } from "@layerzerolabs/lz-definitions"
+import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 export type NetworkKey = keyof typeof NETWORKS
-export type Network = typeof NETWORKS[NetworkKey]
+export type Network = (typeof NETWORKS)[NetworkKey]
 
 export const NETWORKS = {
     11155111: {
@@ -25,7 +25,7 @@ export const NETWORKS = {
         networkName: 'arbitrum-sepolia-testnet',
         eid: EndpointId.ARBSEP_V2_TESTNET,
         lzNetworkName: 'arbitrum-sepolia',
-        contractAddress: '', // Arbitrum Sepolia contract address will be set here
+        contractAddress: '',
         rpcUrl: process.env.RPC_URL_ARBITRUM_SEPOLIA_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
     },
     43113: {
@@ -33,7 +33,7 @@ export const NETWORKS = {
         networkName: 'avalanche-fuji-testnet',
         eid: EndpointId.AVALANCHE_V2_TESTNET,
         lzNetworkName: 'fuji',
-        contractAddress: '', // Avalanche Fuji contract address will be set here
+        contractAddress: '0x1a8e01213c440147C4C4F37bA320D44841c6E42c',
         rpcUrl: process.env.RPC_URL_AVALANCHE_FUJI_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
     },
     80002: {
@@ -41,7 +41,7 @@ export const NETWORKS = {
         networkName: 'amoy-testnet',
         eid: EndpointId.AMOY_V2_TESTNET,
         lzNetworkName: 'amoy',
-        contractAddress: '', // Amoy contract address will be set here
+        contractAddress: '',
         rpcUrl: process.env.RPC_URL_AMOY_TESTNET || 'https://rpc-amoy.polygon.technology',
     },
     245022926: {
@@ -49,8 +49,16 @@ export const NETWORKS = {
         networkName: 'solana-devnet',
         eid: EndpointId.SOLANA_TESTNET,
         lzNetworkName: 'solana-devnet',
-        contractAddress: '', // Solana contract address will be set here
+        contractAddress: '',
         rpcUrl: process.env.RPC_URL_SOLANA_TESTNET || 'https://api.devnet.solana.com',
+    },
+    12345: {
+        name: 'Hyper EVM',
+        networkName: 'hyper-testnet',
+        eid: EndpointId.HYPERLIQUID_V2_TESTNET,
+        lzNetworkName: 'hyper',
+        contractAddress: '', // 배포 후 업데이트
+        rpcUrl: process.env.RPC_URL_HYPER_TESTNET || 'https://rpc.testnet.hyper.xyz',
     },
 } as const
 

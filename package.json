@@ -12,7 +12,8 @@
     "lint:js": "eslint '**/*.{js,ts,json}' && prettier --check .",
     "lint:sol": "solhint 'contracts/**/*.sol'",
     "deploy:sepolia": "npx hardhat deploy --network sepolia-testnet --tags KRWIN",
-    "deploy:base": "npx hardhat deploy --network base-testnet --tags KRWIN"
+    "deploy:base": "npx hardhat deploy --network base-testnet --tags KRWIN",
+    "deploy:fuji": "npx hardhat deploy --network fuji-testnet --tags KRWIN"
   },
   "resolutions": {
     "ethers": "^5.7.2",

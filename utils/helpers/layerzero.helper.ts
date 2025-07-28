@@ -2,29 +2,42 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 import { TwoWayConfig } from '@layerzerolabs/metadata-tools'
 import { OAppEnforcedOption } from '@layerzerolabs/toolbox-hardhat'
-import { CONTRACT_CONFIG } from '../consts/network.const'
+import { NETWORKS, CONTRACT_CONFIG } from '../consts/network.const'
 
 import type { OmniPointHardhat } from '@layerzerolabs/toolbox-hardhat'
 
-// Get deployed contract addresses dynamically
+// Get deployed contract addresses from network config
 export const getDeployedContractAddress = (networkName: string): string => {
-    try {
-        const deployment = require(`../deployments/${networkName}/KRWIN.json`)
-        return deployment.address
-    } catch (error) {
-        console.warn(`KRWIN contract not found in deployments/${networkName}/`)
+    // Map network names to chainIds
+    const networkMap: { [key: string]: number } = {
+        'sepolia-testnet': 11155111,
+        'base-testnet': 84532,
+        'avalanche-fuji-testnet': 43113,
+    }
+
+    const chainId = networkMap[networkName]
+    if (!chainId) {
+        console.warn(`Unknown network: ${networkName}`)
         return ''
     }
+
+    const networkConfig = NETWORKS[chainId]
+    if (!networkConfig || !networkConfig.contractAddress) {
+        console.warn(`No contract address for ${networkName}`)
+        return ''
+    }
+
+    return networkConfig.contractAddress
 }
 
 // Create contract configuration for each network
 export const createContractConfig = (networkName: string, eid: number): OmniPointHardhat => {
     const address = getDeployedContractAddress(networkName)
-    
+
     if (!address) {
         throw new Error(`KRWIN contract not deployed on ${networkName}`)
     }
-    
+
     return {
         eid,
         contractName: CONTRACT_CONFIG.name,
@@ -56,7 +69,7 @@ export const addNetworkPathway = (network1: OmniPointHardhat, network2: OmniPoin
 // Function to get all deployed contracts
 export const getAllDeployedContracts = (): OmniPointHardhat[] => {
     const contracts: OmniPointHardhat[] = []
-    
+
     // Add Sepolia contract if deployed
     try {
         const sepoliaContract = createContractConfig('sepolia-testnet', EndpointId.SEPOLIA_V2_TESTNET)
@@ -64,7 +77,7 @@ export const getAllDeployedContracts = (): OmniPointHardhat[] => {
     } catch (error) {
         console.warn('Sepolia contract not available')
     }
-    
+
     // Add Base contract if deployed
     try {
         const baseContract = createContractConfig('base-testnet', EndpointId.BASESEP_V2_TESTNET)
@@ -72,25 +85,54 @@ export const getAllDeployedContracts = (): OmniPointHardhat[] => {
     } catch (error) {
         console.warn('Base contract not available')
     }
-    
+
+    // Add Fuji contract if deployed
+    try {
+        const fujiContract = createContractConfig('avalanche-fuji-testnet', EndpointId.AVALANCHE_V2_TESTNET)
+        contracts.push(fujiContract)
+    } catch (error) {
+        console.warn('Fuji contract not available')
+    }
+
+    // Add Hyper EVM contract if deployed
+    try {
+        const hyperContract = createContractConfig('hyper-testnet', EndpointId.HYPERLIQUID_V2_TESTNET)
+        contracts.push(hyperContract)
+    } catch (error) {
+        console.warn('Hyper EVM contract not available')
+    }
+
     return contracts
 }
 
 // Create pathways between deployed networks
 export const createPathways = (): TwoWayConfig[] => {
     const pathways: TwoWayConfig[] = []
-    
+
     try {
         const sepoliaContract = createContractConfig('sepolia-testnet', EndpointId.SEPOLIA_V2_TESTNET)
         const baseContract = createContractConfig('base-testnet', EndpointId.BASESEP_V2_TESTNET)
-        
+        const fujiContract = createContractConfig('avalanche-fuji-testnet', EndpointId.AVALANCHE_V2_TESTNET)
+        const hyperContract = createContractConfig('hyper-testnet', EndpointId.HYPERLIQUID_V2_TESTNET)
+
         // Add pathway between Sepolia and Base
         pathways.push(addNetworkPathway(sepoliaContract, baseContract))
-        
+
+        // Add pathway between Sepolia and Fuji
+        pathways.push(addNetworkPathway(sepoliaContract, fujiContract))
+
+        // Add pathway between Base and Fuji
+        pathways.push(addNetworkPathway(baseContract, fujiContract))
+
+        // Add pathway between Sepolia and Hyper EVM
+        pathways.push(addNetworkPathway(sepoliaContract, hyperContract))
+
+        // Add pathway between Fuji and Hyper EVM
+        pathways.push(addNetworkPathway(fujiContract, hyperContract))
     } catch (error) {
         console.warn('Could not create pathways: insufficient deployed contracts')
     }
-    
+
     return pathways
 }
 
@@ -122,6 +164,6 @@ export const hasDeployedContract = (networkName: string): boolean => {
 
 // Get list of deployed networks
 export const getDeployedNetworks = (): string[] => {
-    const networks = ['sepolia-testnet', 'base-testnet']
-    return networks.filter(network => hasDeployedContract(network))
-} 
+    const networks = ['sepolia-testnet', 'base-testnet', 'avalanche-fuji-testnet']
+    return networks.filter((network) => hasDeployedContract(network))
+}
