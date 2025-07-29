@@ -3,7 +3,7 @@
   "include": [
     "deploy",
     "tasks",
-    "test",
+    "testOnChain",
     "hardhat.config.ts",
     "utils/consts/test.const.ts",
     "utils/helpers/ethers.helper.ts"

@@ -83,7 +83,12 @@ const config: HardhatUserConfig = {
         mainnet: {
             eid: EndpointId.ETHEREUM_V2_MAINNET,
             url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth',
-            accounts: [process.env.PRIVATE_KEY_METAMASK_1 || ''],
+            accounts: [process.env.PRIVATE_KEY_METAMASK_2 || ''],
+        },
+        'avalanche-mainnet': {
+            eid: EndpointId.AVALANCHE_V2_MAINNET,
+            url: process.env.RPC_URL_AVALANCHE_MAINNET || 'https://api.avax.network/ext/bc/C/rpc',
+            accounts: [process.env.PRIVATE_KEY_METAMASK_2 || ''],
         },
         hardhat: {
             // Need this for testing because TestHelperOz5.sol is exceeding the compiled contract size limit

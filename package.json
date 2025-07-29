@@ -13,7 +13,9 @@
     "lint:sol": "solhint 'contracts/**/*.sol'",
     "deploy:sepolia": "npx hardhat deploy --network sepolia-testnet --tags KRWIN",
     "deploy:base": "npx hardhat deploy --network base-testnet --tags KRWIN",
-    "deploy:fuji": "npx hardhat deploy --network fuji-testnet --tags KRWIN"
+    "deploy:fuji": "npx hardhat deploy --network fuji-testnet --tags KRWIN",
+    "deploy:avalanche": "npx hardhat deploy --network avalanche-mainnet --tags KRWIN",
+    "deploy:ethereum": "npx hardhat deploy --network mainnet --tags KRWIN"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
