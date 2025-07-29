@@ -8,13 +8,13 @@ async function main() {
             name: 'Ethereum Mainnet',
             chainId: 1,
             rpcUrl: process.env.RPC_URL_ETHEREUM_MAINNET,
-            gasPrice: ethers.utils.parseUnits('40', 'gwei'), // hard coded gas fee
+            endpointAddress: '0x66A71Dcef29A0fFBDBE3c6a460a3B5BC225Cd675', // V2 address
         },
         {
             name: 'Avalanche Mainnet',
             chainId: 43114,
             rpcUrl: process.env.RPC_URL_AVALANCHE_MAINNET,
-            gasPrice: ethers.utils.parseUnits('10', 'gwei'), // hard coded gas fee
+            endpointAddress: '0x66A71Dcef29A0fFBDBE3c6a460a3B5BC225Cd675', // V2 address
         },
     ]
 
@@ -27,20 +27,18 @@ async function main() {
             const currentGasPrice = await provider.getGasPrice()
             console.log(`>>> Current gas price >>> ${ethers.utils.formatUnits(currentGasPrice, 'gwei')} gwei`)
 
-            // real gas price
-            const gasPrice = currentGasPrice
+            // LayerZero V2 Endpoint 주소
+            const endpointAddress = network.endpointAddress
 
             console.log('>>> Estimating KRWIN deployment gas >>>')
             const KRWIN = await ethers.getContractFactory('KRWIN')
-
-            const endpointAddress = '0x66A71Dcef29A0fFBDBE3c6a460a3B5BC225Cd675' // V2 address
 
             const krwinDeploymentData = KRWIN.getDeployTransaction(endpointAddress)
             const krwinGasEstimate = await provider.estimateGas(krwinDeploymentData)
 
             console.log(`>>> KRWIN deployment gas estimate >>> ${krwinGasEstimate.toString()}`)
             console.log(
-                `>>> KRWIN deployment cost >>> ${ethers.utils.formatEther(krwinGasEstimate.mul(gasPrice))} ETH/AVAX`
+                `>>> KRWIN deployment cost >>> ${ethers.utils.formatEther(krwinGasEstimate.mul(currentGasPrice))} ETH/AVAX`
             )
 
             console.log('>>> Estimating FeeManager deployment gas >>>')
@@ -51,14 +49,30 @@ async function main() {
 
             console.log(`>>> FeeManager deployment gas estimate >>> ${feeManagerGasEstimate.toString()}`)
             console.log(
-                `>>> FeeManager deployment cost >>> ${ethers.utils.formatEther(feeManagerGasEstimate.mul(gasPrice))} ETH/AVAX`
+                `>>> FeeManager deployment cost >>> ${ethers.utils.formatEther(feeManagerGasEstimate.mul(currentGasPrice))} ETH/AVAX`
             )
 
-            const totalGas = krwinGasEstimate.add(feeManagerGasEstimate)
-            const totalCost = totalGas.mul(gasPrice)
+            // Wiring 가스 추정 (setPeer, setFeeManager 등)
+            console.log('>>> Estimating wiring gas >>>')
+            const wiringGasEstimate = ethers.BigNumber.from('500000') // 예상값
+            console.log(`>>> Wiring gas estimate >>> ${wiringGasEstimate.toString()}`)
+            console.log(
+                `>>> Wiring cost >>> ${ethers.utils.formatEther(wiringGasEstimate.mul(currentGasPrice))} ETH/AVAX`
+            )
+
+            const totalGas = krwinGasEstimate.add(feeManagerGasEstimate).add(wiringGasEstimate)
+            const totalCost = totalGas.mul(currentGasPrice)
 
             console.log(`>>> Total gas estimate >>> ${totalGas.toString()}`)
             console.log(`>>> Total deployment cost >>> ${ethers.utils.formatEther(totalCost)} ETH/AVAX`)
+
+            // USD 환산 (대략적)
+            const ethPrice = 3000 // USD (실시간 가격 확인 필요)
+            const avaxPrice = 30 // USD
+            const pricePerUnit = network.chainId === 1 ? ethPrice : avaxPrice
+            const totalCostUSD = parseFloat(ethers.utils.formatEther(totalCost)) * pricePerUnit
+
+            console.log(`>>> Total cost in USD >>> $${totalCostUSD.toFixed(2)}`)
         } catch (error) {
             console.error(`>>> Error estimating for ${network.name} >>>`, error.message)
         }
@@ -66,6 +80,7 @@ async function main() {
 
     console.log('\n>>> Gas estimation completed >>>')
     console.log('>>> Note: Actual costs may vary based on network conditions >>>')
+    console.log('>>> Run this script before mainnet deployment >>>')
 }
 
 main()
