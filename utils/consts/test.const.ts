@@ -29,10 +29,10 @@ export const contractFromSigner2 = contract.connect(signer2)
 export const feeManagerContract = new ethers.Contract(feeManagerContractAddress, feeManagerAbi, signer)
 
 // Test wallet addresses
-export const wallet1 = '0xfca1c3a52c77e89f0a2a8ac635afcaec3f76e5ee'
-export const wallet2 = '0x8f4b22e6817984d376e8a1fa8f04edb705673c9e'
-export const wallet3 = '0x1abe8c567f9c73c69150a4da20a89c2c1123224d'
-export const wallet4 = '0x50a5c24f628d166ccdf48cb2df782ff1613f1b72'
+export const wallet1 = process.env.METAMASK_WALLET_ADDRESS_1
+export const wallet2 = process.env.METAMASK_WALLET_ADDRESS_2
+export const wallet3 = process.env.METAMASK_WALLET_ADDRESS_3
+export const wallet4 = process.env.METAMASK_WALLET_ADDRESS_4
 
 export const networkInfo = getNetworkInfo(network, RPC_URL, hre.network.config.chainId)
 

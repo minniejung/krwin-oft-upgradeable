@@ -10,13 +10,6 @@ LayerZero를 사용한 업그레이드 가능한 크로스체인 토큰 프로�
 npm install
 ```
 
-### 환경 설정
-
-```bash
-cp .env.example .env
-# .env 파일에 PRIVATE_KEY 설정
-```
-
 ### 컴파일
 
 ```bash
