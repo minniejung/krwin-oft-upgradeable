@@ -1,10 +1,10 @@
 {
-  "name": "@layerzerolabs/oft-upgradeable-example",
+  "name": "krwin-oft-upgradeable",
   "version": "0.3.0",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf artifacts cache out deployments",
+    "clean": "rm -rf artifacts cache out",
     "compile": "hardhat compile",
     "test": "hardhat test",
     "lint": "$npm_execpath run lint:js && $npm_execpath run lint:sol",
@@ -14,10 +14,6 @@
     "deploy:sepolia": "npx hardhat deploy --network sepolia-testnet --tags KRWIN",
     "deploy:base": "npx hardhat deploy --network base-testnet --tags KRWIN",
     "deploy:fuji": "npx hardhat deploy --network fuji-testnet --tags KRWIN"
-  },
-  "resolutions": {
-    "ethers": "^5.7.2",
-    "hardhat-deploy": "^0.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
@@ -64,22 +60,15 @@
     "solhint": "^4.1.1",
     "solidity-bytes-utils": "^0.8.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.4",
+    "prettier-plugin-solidity": "^2.1.0"
+
   },
   "engines": {
     "node": ">=18.16.0"
   },
-  "pnpm": {
-    "overrides": {
-      "ethers": "^5.7.2",
-      "hardhat-deploy": "^0.12.1"
-    }
-  },
   "overrides": {
     "ethers": "^5.7.2",
     "hardhat-deploy": "^0.12.1"
-  },
-  "dependencies": {
-    "prettier-plugin-solidity": "^2.1.0"
   }
 }
