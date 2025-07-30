@@ -41,21 +41,27 @@ task('set:feeManager', 'Set FeeManager address in KRWIN contract')
             console.log('>>> FeeManager set successfully >>> ✓')
             console.log(`>>> Transaction hash >>> ${tx.hash}`)
 
-            // 확인
             const currentFeeManager = await krwinContract.feeManager()
             console.log(`>>> Verified FeeManager >>> ${currentFeeManager}`)
 
-            // mintFee도 설정 (기본값: 100 = 1%)
-            console.log('>>> Setting mint fee to 1%...')
-            const setMintFeeTx = await krwinContract.setMintFee(100)
+            console.log('>>> Setting mint fee to 0%...')
+            const setMintFeeTx = await krwinContract.setMintFee(0)
             await setMintFeeTx.wait()
 
             console.log('>>> Mint fee set successfully >>> ✓')
             console.log(`>>> Mint fee transaction hash >>> ${setMintFeeTx.hash}`)
 
-            // 최종 확인
+            console.log('>>> Setting burn fee to 0%...')
+            const setBurnFeeTx = await krwinContract.setBurnFee(0)
+            await setBurnFeeTx.wait()
+
+            console.log('>>> Burn fee set successfully >>> ✓')
+            console.log(`>>> Burn fee transaction hash >>> ${setBurnFeeTx.hash}`)
+
             const currentMintFee = await krwinContract.mintFee()
+            const currentBurnFee = await krwinContract.burnFee()
             console.log(`>>> Current mint fee >>> ${currentMintFee} (${currentMintFee / 100}%)`)
+            console.log(`>>> Current burn fee >>> ${currentBurnFee} (${currentBurnFee / 100}%)`)
         } catch (error) {
             console.error('>>> Error setting FeeManager >>>', error)
             console.error('>>> Full error >>>', error)
