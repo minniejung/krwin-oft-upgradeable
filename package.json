@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf artifacts cache out",
+    "clean": "rm -rf artifacts cache out deployments",
     "compile": "hardhat compile",
     "test": "hardhat test",
     "lint": "$npm_execpath run lint:js && $npm_execpath run lint:sol",
@@ -51,6 +51,7 @@
     "concurrently": "~9.1.0",
     "dotenv": "^16.4.1",
     "eslint": "^8.55.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jest-extended": "~2.0.0",
     "ethers": "^5.7.2",
     "hardhat": "^2.22.10",
@@ -59,12 +60,11 @@
     "hardhat-deploy-ethers": "^0.3.0-beta.13",
     "mocha": "^10.2.0",
     "prettier": "^3.2.5",
+    "prettier-plugin-solidity": "^2.1.0",
     "solhint": "^4.1.1",
     "solidity-bytes-utils": "^0.8.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.4",
-    "prettier-plugin-solidity": "^2.1.0"
-
+    "typescript": "^5.4.4"
   },
   "engines": {
     "node": ">=18.16.0"
