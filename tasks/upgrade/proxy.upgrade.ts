@@ -45,9 +45,16 @@ task('upgrade:proxy', 'Upgrade proxy implementation').setAction(async (_, hre: H
         const proxyAdmin = await upgrades.erc1967.getAdminAddress(address)
         const proxyAdminContract = await ethers.getContractAt('ProxyAdmin', proxyAdmin)
 
-        await proxyAdminContract.upgrade(address, newImplementation.address)
+        const tx = await proxyAdminContract.upgrade(address, newImplementation.address)
+        console.log('>>> Upgrade transaction hash >>>', tx.hash)
+
+        const receipt = await tx.wait()
+        console.log('>>> Upgrade transaction confirmed >>>', receipt.status === 1 ? 'SUCCESS' : 'FAILED')
 
         console.log('>>> Proxy upgraded successfully!')
+
+        console.log('>>> Waiting for blockchain state update...')
+        await new Promise((resolve) => setTimeout(resolve, 5000))
 
         const newImplementationAddress = await upgrades.erc1967.getImplementationAddress(address)
         console.log('>>> New implementation address after upgrade:', newImplementationAddress)
