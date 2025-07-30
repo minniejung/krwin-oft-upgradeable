@@ -1,4 +1,5 @@
 import { EndpointId } from '@layerzerolabs/lz-definitions'
+import 'dotenv/config'
 
 export type NetworkKey = keyof typeof NETWORKS
 export type Network = (typeof NETWORKS)[NetworkKey]
