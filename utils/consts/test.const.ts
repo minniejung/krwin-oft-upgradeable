@@ -39,7 +39,7 @@ export const contractFromSigner2 = contract.connect(signer2)
 export const feeManagerContract = new ethers.Contract(feeManagerContractAddress, feeManagerAbi, signer)
 
 // Test wallet addresses
-export const wallet1 = process.env.METAMASK_WALLET_ADDRESS_1
-export const wallet2 = process.env.METAMASK_WALLET_ADDRESS_2
-export const wallet3 = process.env.METAMASK_WALLET_ADDRESS_3
-export const wallet4 = process.env.METAMASK_WALLET_ADDRESS_4
+export const wallet1 = process.env.METAMASK_WALLET_ADDRESS_1!
+export const wallet2 = process.env.METAMASK_WALLET_ADDRESS_2!
+export const wallet3 = process.env.METAMASK_WALLET_ADDRESS_3!
+export const wallet4 = process.env.METAMASK_WALLET_ADDRESS_4!

@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { signer, contract, wallet2, signer2 } from '../utils/consts/test.const'
+
+import { contract, signer, signer2, wallet2 } from '../utils/consts/test.const'
 
 describe('Access Control', () => {
     let adminRole: string
@@ -37,7 +38,6 @@ describe('Access Control', () => {
         console.log('>>> Signer has OPERATOR_ROLE >>> ', isOperator)
         expect(isOperator).to.be.true
     })
-
 
     it('should return correct admin for MINTER_ROLE', async () => {
         const isMinter = await contract.hasRole(minterRole, signer.address)

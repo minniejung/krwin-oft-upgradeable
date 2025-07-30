@@ -5,7 +5,7 @@
     "tasks",
     "testOnChain",
     "hardhat.config.ts",
-    "utils/consts/test.const.ts",
+    "utils/consts/test.const.ts"
   ],
   "compilerOptions": {
     "target": "es2020",

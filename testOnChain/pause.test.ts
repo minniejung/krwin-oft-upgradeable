@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { signer, contract} from '../utils/consts/test.const'
+
+import { contract, signer } from '../utils/consts/test.const'
 
 describe('Pause logic', () => {
     before(async () => {
@@ -19,13 +20,13 @@ describe('Pause logic', () => {
         }
     })
 
-    after(async () => {        
-        if (contract && await contract.isPaused()) {
+    after(async () => {
+        if (contract && (await contract.isPaused())) {
             await contract.connect(signer).unpause()
         }
     })
 
-    it('should allow OPERATOR_ROLE to pause and unpause the contract', async () => {        
+    it('should allow OPERATOR_ROLE to pause and unpause the contract', async () => {
         const pauseTx = await contract.pause()
         await pauseTx.wait()
         console.log('>>> Contract paused >>>')

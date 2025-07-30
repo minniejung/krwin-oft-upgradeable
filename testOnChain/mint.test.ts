@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { ethers } from 'hardhat'
+
 import { contract, contractFromSigner2, feeManagerContract, signer, signer2 } from '../utils/consts/test.const'
 
 describe('Mint logic', () => {

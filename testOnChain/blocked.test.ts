@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { signer, contract, signer2, wallet3 } from '../utils/consts/test.const'
+
+import { contract, signer, wallet3 } from '../utils/consts/test.const'
 
 describe('Blocked accounts (freeze and blacklist) logic', () => {
     before(async () => {
@@ -72,14 +73,13 @@ describe('Blocked accounts (freeze and blacklist) logic', () => {
         expect(unblacklisted).to.equal(false)
     })
 
-
     it('should check isBlocked function correctly', async () => {
         let isBlocked = await contract.isBlocked(wallet3)
         console.log('>>> Initial isBlocked >>>', isBlocked)
         expect(isBlocked).to.equal(false)
 
         console.log('>>> Freezing wallet3... >>>')
-        const freezeTx = await contract.connect(signer).freezeAccount(wallet3)  
+        const freezeTx = await contract.connect(signer).freezeAccount(wallet3)
         await freezeTx.wait()
 
         isBlocked = await contract.isBlocked(wallet3)
@@ -89,7 +89,7 @@ describe('Blocked accounts (freeze and blacklist) logic', () => {
         console.log('>>> Unfreezing wallet3... >>>')
         const unfreezeTx = await contract.connect(signer).unfreezeAccount(wallet3)
         await unfreezeTx.wait()
-        
+
         isBlocked = await contract.isBlocked(wallet3)
         console.log('>>> isBlocked after unfreeze >>>', isBlocked)
         expect(isBlocked).to.equal(false)
@@ -97,7 +97,7 @@ describe('Blocked accounts (freeze and blacklist) logic', () => {
         console.log('>>> Blacklisting wallet3... >>>')
         const blacklistTx = await contract.connect(signer).addToBlacklist(wallet3)
         await blacklistTx.wait()
-        
+
         isBlocked = await contract.isBlocked(wallet3)
         console.log('>>> isBlocked after blacklist >>>', isBlocked)
         expect(isBlocked).to.equal(true)
@@ -105,9 +105,9 @@ describe('Blocked accounts (freeze and blacklist) logic', () => {
         console.log('>>> Unblacklisting wallet3... >>>')
         const unblacklistTx = await contract.connect(signer).removeFromBlacklist(wallet3)
         await unblacklistTx.wait()
-        
+
         isBlocked = await contract.isBlocked(wallet3)
         console.log('>>> isBlocked after unblacklist >>>', isBlocked)
         expect(isBlocked).to.equal(false)
-    }).timeout(120000) 
+    }).timeout(120000)
 })

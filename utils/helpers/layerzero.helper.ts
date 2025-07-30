@@ -2,7 +2,9 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 import { TwoWayConfig } from '@layerzerolabs/metadata-tools'
 import { OAppEnforcedOption, type OmniPointHardhat } from '@layerzerolabs/toolbox-hardhat'
+
 import { CONTRACT_CONFIG } from '../consts/network.const'
+
 import { getDeployedContractAddress } from './contract.helper'
 
 export const createContractConfig = (networkName: string, eid: number): OmniPointHardhat => {

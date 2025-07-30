@@ -1,6 +1,6 @@
 import { expect } from 'chai'
-import { ethers } from 'hardhat'
-import { contract, contractFromSigner2, signer, signer2, feeManagerContract } from '../utils/consts/test.const'
+
+import { contract, contractFromSigner2, feeManagerContract, signer, signer2 } from '../utils/consts/test.const'
 
 describe('Burn logic', () => {
     let recoveryRole: string
@@ -13,9 +13,9 @@ describe('Burn logic', () => {
         // Check if signer has OPERATOR_ROLE
         // const OPERATOR_ROLE = await contract.OPERATOR_ROLE()
         // hasOperatorRole = await contract.hasRole(OPERATOR_ROLE, signer.address)
-        // console.log('>>> Operator role check >>>', { 
-        //     signer: signer.address, 
-        //     hasRole: hasOperatorRole 
+        // console.log('>>> Operator role check >>>', {
+        //     signer: signer.address,
+        //     hasRole: hasOperatorRole
         // })
 
         // const setFeeManager = await contract.setFeeManager(feeManagerContract.address)
@@ -72,7 +72,7 @@ describe('Burn logic', () => {
         })
 
         expect(burnLogs.length).to.be.greaterThan(0)
-        
+
         // Verify the fee was paid correctly
         if (burnLogs.length > 0) {
             const feeFromEvent = BigInt(burnLogs[burnLogs.length - 1]?.args?.fee?.toString() || '0')
@@ -137,7 +137,11 @@ describe('Burn logic', () => {
         console.log('>>> Balance after destruction >>>', { balance: balanceAfter.toString() })
         expect(balanceAfter).to.equal(0)
 
-        const destroyedLogs = await contract.queryFilter('BlockedFundsDestroyed', receipt.blockNumber, receipt.blockNumber)
+        const destroyedLogs = await contract.queryFilter(
+            'BlockedFundsDestroyed',
+            receipt.blockNumber,
+            receipt.blockNumber
+        )
         console.log('>>> Destroyed logs >>>', destroyedLogs.length)
         destroyedLogs.forEach((log, index) => {
             console.log(`>>> Log ${index} >>>`, log.args)
