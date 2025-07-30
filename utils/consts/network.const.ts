@@ -82,16 +82,16 @@ export const NETWORKS = {
     },
 } as const
 
-export const CONTRACT_CONFIG = {
-    name: 'KRWIN',
-    tokenName: 'KRWIN Stablecoin',
-    tokenSymbol: 'KRWIN',
-    decimals: 18,
-} as const
-
 // export const CONTRACT_CONFIG = {
-//     name: 'ABC',
-//     tokenName: 'ABC Stablecoin',
-//     tokenSymbol: 'ABC',
+//     name: 'KRWIN',
+//     tokenName: 'KRWIN Stablecoin',
+//     tokenSymbol: 'KRWIN',
 //     decimals: 18,
 // } as const
+
+export const CONTRACT_CONFIG = {
+    name: 'ABC',
+    tokenName: 'ABC Stablecoin',
+    tokenSymbol: 'ABC',
+    decimals: 18,
+} as const
