@@ -2,9 +2,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 import { TwoWayConfig } from '@layerzerolabs/metadata-tools'
 import { OAppEnforcedOption, type OmniPointHardhat } from '@layerzerolabs/toolbox-hardhat'
-
 import { CONTRACT_CONFIG } from '../consts/network.const'
-
 import { getDeployedContractAddress } from './contract.helper'
 
 export const createContractConfig = (networkName: string, eid: number): OmniPointHardhat => {
@@ -40,73 +38,39 @@ export const addNetworkPathway = (network1: OmniPointHardhat, network2: OmniPoin
     ]
 }
 
-export const getAllDeployedContracts = (): OmniPointHardhat[] => {
+export const getMainnetDeployedContracts = (): OmniPointHardhat[] => {
     const contracts: OmniPointHardhat[] = []
 
     try {
         const mainnetContract = createContractConfig('mainnet', EndpointId.ETHEREUM_V2_MAINNET)
         contracts.push(mainnetContract)
+        console.log('>>> ✅ Mainnet contract >>>', mainnetContract.address)
     } catch (error) {
-        console.warn('Mainnet contract not available')
+        console.warn('>>> ❌ Mainnet contract not available')
     }
 
     try {
         const avalancheContract = createContractConfig('avalanche-mainnet', EndpointId.AVALANCHE_V2_MAINNET)
         contracts.push(avalancheContract)
+        console.log('>>> ✅ Avalanche mainnet contract >>>', avalancheContract.address)
     } catch (error) {
-        console.warn('Avalanche mainnet contract not available')
-    }
-
-    try {
-        const sepoliaContract = createContractConfig('sepolia-testnet', EndpointId.SEPOLIA_V2_TESTNET)
-        contracts.push(sepoliaContract)
-    } catch (error) {
-        console.warn('Sepolia contract not available')
-    }
-
-    try {
-        const baseContract = createContractConfig('base-testnet', EndpointId.BASESEP_V2_TESTNET)
-        contracts.push(baseContract)
-    } catch (error) {
-        console.warn('Base contract not available')
-    }
-
-    try {
-        const fujiContract = createContractConfig('avalanche-fuji-testnet', EndpointId.AVALANCHE_V2_TESTNET)
-        contracts.push(fujiContract)
-    } catch (error) {
-        console.warn('Fuji contract not available')
-    }
-
-    try {
-        const hyperContract = createContractConfig('hyper-testnet', EndpointId.HYPERLIQUID_V2_TESTNET)
-        contracts.push(hyperContract)
-    } catch (error) {
-        console.warn('Hyper EVM contract not available')
+        console.warn('>>> ❌ Avalanche mainnet contract not available')
     }
 
     return contracts
 }
 
-export const createPathways = (): TwoWayConfig[] => {
+export const createMainnetPathways = (): TwoWayConfig[] => {
     const pathways: TwoWayConfig[] = []
 
     try {
         const mainnetContract = createContractConfig('mainnet', EndpointId.ETHEREUM_V2_MAINNET)
         const avalancheContract = createContractConfig('avalanche-mainnet', EndpointId.AVALANCHE_V2_MAINNET)
-        const sepoliaContract = createContractConfig('sepolia-testnet', EndpointId.SEPOLIA_V2_TESTNET)
-        const baseContract = createContractConfig('base-testnet', EndpointId.BASESEP_V2_TESTNET)
-        const fujiContract = createContractConfig('avalanche-fuji-testnet', EndpointId.AVALANCHE_V2_TESTNET)
-        const hyperContract = createContractConfig('hyper-testnet', EndpointId.HYPERLIQUID_V2_TESTNET)
 
         pathways.push(addNetworkPathway(mainnetContract, avalancheContract))
-        pathways.push(addNetworkPathway(sepoliaContract, baseContract))
-        pathways.push(addNetworkPathway(sepoliaContract, fujiContract))
-        pathways.push(addNetworkPathway(baseContract, fujiContract))
-        pathways.push(addNetworkPathway(sepoliaContract, hyperContract))
-        pathways.push(addNetworkPathway(fujiContract, hyperContract))
+        console.log('>>> Mainnet pathways created >>>', pathways.length)
     } catch (error) {
-        console.warn('Could not create pathways: insufficient deployed contracts')
+        console.warn('Could not create mainnet pathways: insufficient deployed contracts')
     }
 
     return pathways

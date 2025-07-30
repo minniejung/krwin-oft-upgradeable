@@ -26,7 +26,7 @@ export const NETWORKS = {
         networkName: 'sepolia-testnet',
         eid: EndpointId.SEPOLIA_V2_TESTNET,
         lzNetworkName: 'sepolia',
-        contractAddress: '',
+        contractAddress: '0xaeEe3083693F0B3d52eA02d0B1B57522e9A1481C',
         // contractAddress: '0xaC06f9a6134f8A6f065A19902f3FccE27Ef05AB2', // change address
         rpcUrl: process.env.RPC_URL_SEPOLIA_TESTNET || 'https://rpc.sepolia.org',
     },
@@ -52,7 +52,7 @@ export const NETWORKS = {
         networkName: 'avalanche-fuji-testnet',
         eid: EndpointId.AVALANCHE_V2_TESTNET,
         lzNetworkName: 'fuji',
-        contractAddress: '',
+        contractAddress: '0x5B533885167a3b30C2b2262010bEf33aa294Ab64',
         // contractAddress: '0x1a8e01213c440147C4C4F37bA320D44841c6E42c',
         rpcUrl: process.env.RPC_URL_AVALANCHE_FUJI_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
     },
