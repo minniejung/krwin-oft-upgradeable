@@ -6,7 +6,6 @@
     "testOnChain",
     "hardhat.config.ts",
     "utils/consts/test.const.ts",
-    "utils/helpers/ethers.helper.ts"
   ],
   "compilerOptions": {
     "target": "es2020",

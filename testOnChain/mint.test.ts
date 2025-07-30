@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import { ethers } from 'hardhat'
-import { contract, contractFromSigner2, signer, signer2,feeManagerContract } from '../utils/consts/test.const'
-import { weiToEther } from '../utils/helpers/ethers.helper'
+import { contract, contractFromSigner2, feeManagerContract, signer, signer2 } from '../utils/consts/test.const'
 
 describe('Mint logic', () => {
     let minterRole: string
@@ -52,17 +51,16 @@ describe('Mint logic', () => {
         const mintAmount = ethers.utils.parseUnits('1000', 18)
         const tx = await contract.mint(signer.address, mintAmount)
         const receipt = await tx.wait()
-        
+
         console.log('>>> Mint transaction hash >>>', tx.hash)
         console.log('>>> Mint block number >>>', receipt.blockNumber)
-        
 
         const mintLogs = await contract.queryFilter('ReserveMinted', receipt.blockNumber, receipt.blockNumber)
         console.log('>>> Found mint logs >>>', mintLogs.length)
         mintLogs.forEach((log, index) => {
             console.log(`>>> Log ${index} >>>`, log.args)
         })
-        
+
         expect(mintLogs.length).to.be.greaterThan(0)
     })
 
@@ -109,7 +107,7 @@ describe('Mint logic', () => {
         // const isSigner2Frozen = await contract.isFrozen(signer2.address)
         // console.log('>>> Signer2 blacklisted >>>', isSigner2Blacklisted)
         // console.log('>>> Signer2 frozen >>>', isSigner2Frozen)
-        
+
         // if (isSigner2Blacklisted) {
         //     const tx = await contract.removeFromBlacklist(signer2.address)
         //     await tx.wait()
@@ -122,18 +120,18 @@ describe('Mint logic', () => {
         // }
 
         const signerBalanceBefore = await contract.balanceOf(signer.address)
-        console.log('>>> Signer balance before >>>', weiToEther(signerBalanceBefore))
+        console.log('>>> Signer balance before >>>', ethers.utils.formatEther(signerBalanceBefore))
 
         const recipient = signer2.address
         const recipientBalanceBefore = await contract.balanceOf(recipient)
-        console.log('>>> Recipient balance before >>>', weiToEther(recipientBalanceBefore))
+        console.log('>>> Recipient balance before >>>', ethers.utils.formatEther(recipientBalanceBefore))
 
         // const lpBalanceBefore = await contract.balanceOf(lpReceiver)
         // const treasuryBalanceBefore = await contract.balanceOf(treasuryReceiver)
         // console.log('>>> LP receiver >>>', lpReceiver)
         // console.log('>>> Treasury receiver >>>', treasuryReceiver)
-        // console.log('>>> LP balance before >>>', weiToEther(lpBalanceBefore))
-        // console.log('>>> Treasury balance before >>>', weiToEther(treasuryBalanceBefore))
+        // console.log('>>> LP balance before >>>', ethers.utils.formatEther(lpBalanceBefore))
+        // console.log('>>> Treasury balance before >>>', ethers.utils.formatEther(treasuryBalanceBefore))
 
         const transferAmount = 200
 
@@ -155,7 +153,7 @@ describe('Mint logic', () => {
             await tx.wait()
 
             const signerBalanceAfter = await contract.balanceOf(signer.address)
-            console.log('>>> Signer balance after >>>', weiToEther(signerBalanceAfter))
+            console.log('>>> Signer balance after >>>', ethers.utils.formatEther(signerBalanceAfter))
 
             const recipientBalanceAfter = await contract.balanceOf(recipient)
             const netReceived = recipientBalanceAfter.sub(recipientBalanceBefore)
