@@ -45,21 +45,6 @@ const config: HardhatUserConfig = {
         },
     },
     networks: {
-        // 'optimism-testnet': {
-        //     eid: EndpointId.OPTSEP_V2_TESTNET,
-        //     url: process.env.RPC_URL_OP_SEPOLIA || 'https://optimism-sepolia.gateway.tenderly.co',
-        //     accounts,
-        // },
-        // 'arbitrum-testnet': {
-        //     eid: EndpointId.ARBSEP_V2_TESTNET,
-        //     url: process.env.RPC_URL_ARB_SEPOLIA || 'https://arbitrum-sepolia.gateway.tenderly.co',
-        //     accounts,
-        // },
-        // 'kaia-testnet': {
-        //     eid: EndpointId.KLAYTN_V2_TESTNET,
-        //     url: process.env.RPC_URL_KAIA_TESTNET || 'https://rpc.testnet.kaia.network',
-        //     accounts,
-        // },
         'sepolia-testnet': {
             eid: EndpointId.SEPOLIA_V2_TESTNET,
             url: process.env.RPC_URL_SEPOLIA_TESTNET || 'https://rpc.sepolia.org',
@@ -82,13 +67,13 @@ const config: HardhatUserConfig = {
         },
         mainnet: {
             eid: EndpointId.ETHEREUM_V2_MAINNET,
-            url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth',
-            accounts: [process.env.PRIVATE_KEY_METAMASK_2 || ''],
+            url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://eth-mainnet.g.alchemy.com/public',
+            accounts: [process.env.PRIVATE_KEY_METAMASK_2!],
         },
         'avalanche-mainnet': {
             eid: EndpointId.AVALANCHE_V2_MAINNET,
             url: process.env.RPC_URL_AVALANCHE_MAINNET || 'https://api.avax.network/ext/bc/C/rpc',
-            accounts: [process.env.PRIVATE_KEY_METAMASK_2 || ''],
+            accounts: [process.env.PRIVATE_KEY_METAMASK_2!],
         },
         hardhat: {
             // Need this for testing because TestHelperOz5.sol is exceeding the compiled contract size limit
@@ -97,7 +82,10 @@ const config: HardhatUserConfig = {
     },
     namedAccounts: {
         deployer: {
-            default: 0, // wallet address of index[0], of the mnemonic in .env
+            default: 0,
+            1: 0, // mainnet
+            43114: 0, // avalanche
+            11155111: 0, // sepolia
         },
     },
     layerZero: {
