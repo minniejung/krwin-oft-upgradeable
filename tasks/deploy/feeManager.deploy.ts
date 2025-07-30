@@ -1,5 +1,6 @@
 import { task } from 'hardhat/config'
-import { NETWORKS } from '../utils/consts/network.const'
+
+import { NETWORKS } from '../../utils/consts/network.const'
 
 task('deploy:feeManager', 'Deploy FeeManager with dynamic arguments')
     .addOptionalParam('krwinAddress', 'KRWIN contract address (will be fetched if not provided)')

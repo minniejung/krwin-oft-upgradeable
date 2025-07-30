@@ -1,3 +1,5 @@
+import { task } from 'hardhat/config'
+
 import { EndpointId, endpointIdToNetwork } from '@layerzerolabs/lz-definitions'
 import { getDeploymentAddressAndAbi } from '@layerzerolabs/lz-evm-sdk-v2'
 
@@ -18,8 +20,8 @@ const networks = [
     },
 ]
 
-async function main() {
-    const { ethers } = require('hardhat')
+task('check:deployment', 'Check deployment status across networks').setAction(async (_, hre) => {
+    const { ethers } = hre
 
     for (const network of networks) {
         console.log(`\n>>> Checking ${network.name} >>>`)
@@ -62,16 +64,9 @@ async function main() {
             const gasPrice = await provider.getGasPrice()
             console.log(`>>> Current gas price >>> ${ethers.utils.formatUnits(gasPrice, 'gwei')} gwei`)
         } catch (error) {
-            console.error(`>>> Error checking ${network.name} >>>`, error.message)
+            console.error(`>>> Error checking ${network.name} >>>`, (error as any).message)
         }
     }
 
     console.log('\n>>> Deployment check completed >>>')
-}
-
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error)
-        process.exit(1)
-    })
+})

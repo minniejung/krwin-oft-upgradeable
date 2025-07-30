@@ -1,5 +1,6 @@
 import { task } from 'hardhat/config'
-import { NETWORKS, CONTRACT_CONFIG } from '../utils/consts/network.const'
+
+import { CONTRACT_CONFIG, NETWORKS } from '../../utils/consts/network.const'
 
 task('set:feeManager', 'Set FeeManager address in KRWIN contract')
     .addParam('address', 'FeeManager contract address')

@@ -1,7 +1,9 @@
-import { NETWORKS, CONTRACT_CONFIG } from '../utils/consts/network.const'
+import { task } from 'hardhat/config'
 
-async function main() {
-    const { ethers } = require('hardhat')
+import { CONTRACT_CONFIG, NETWORKS } from '../../utils/consts/network.const'
+
+task('set:peer:all', 'Set peers for all networks').setAction(async (_, hre) => {
+    const { ethers } = hre
 
     const [signer] = await ethers.getSigners()
     console.log('>>> Signer address >>>', signer.address)
@@ -9,7 +11,7 @@ async function main() {
     const network = await ethers.provider.getNetwork()
     console.log('>>> Network chainId >>>', network.chainId)
 
-    const currentNetworkConfig = NETWORKS[network.chainId]
+    const currentNetworkConfig = NETWORKS[network.chainId as keyof typeof NETWORKS]
     if (!currentNetworkConfig) {
         console.error(`>>> No config for chainId >>> ${network.chainId}`)
         return
@@ -55,19 +57,11 @@ async function main() {
             console.log('>>> Peer set successfully >>> YAY!')
             console.log(`>>> Transaction hash >>> ${tx.hash}`)
 
-            // 확인
             const peer = await contract.peers(networkConfig.eid)
             console.log(`>>> Verified peer >>> ${peer}`)
         }
     } catch (error) {
-        console.error('>>> Error setting peers >>>', error.message)
+        console.error('>>> Error setting peers >>>', (error as any).message)
         console.error('>>> Full error >>>', error)
     }
-}
-
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error)
-        process.exit(1)
-    })
+})

@@ -87,9 +87,9 @@ export async function sendEvm(
     // 4️⃣ fetch decimals from the underlying token
     // ERC20 인터페이스 직접 정의
     const erc20Abi = [
-        "function decimals() view returns (uint8)",
-        "function allowance(address owner, address spender) view returns (uint256)",
-        "function approve(address spender, uint256 amount) returns (bool)"
+        'function decimals() view returns (uint8)',
+        'function allowance(address owner, address spender) view returns (uint256)',
+        'function approve(address spender, uint256 amount) returns (bool)',
     ]
     const erc20 = await srcEidHre.ethers.getContractAt(erc20Abi, underlying, signer)
     const decimals: number = await erc20.decimals()

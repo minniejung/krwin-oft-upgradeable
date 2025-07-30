@@ -1,5 +1,6 @@
 import { task } from 'hardhat/config'
-import { CONTRACT_CONFIG, NETWORKS } from '../utils/consts/network.const'
+
+import { CONTRACT_CONFIG, NETWORKS } from '../../utils/consts/network.const'
 
 task('transfer:reserve', 'Transfer tokens from reserve to specified address')
     .addParam('to', 'Target address to transfer tokens to')

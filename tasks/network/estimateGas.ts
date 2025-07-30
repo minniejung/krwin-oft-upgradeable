@@ -1,5 +1,7 @@
-async function main() {
-    const { ethers } = require('hardhat')
+import { task } from 'hardhat/config'
+
+task('estimate:gas', 'Estimate gas costs for deployment').setAction(async (_, hre) => {
+    const { ethers } = hre
 
     console.log('>>> Gas Estimation for KRWIN and FeeManager Deployment >>>')
 
@@ -18,6 +20,9 @@ async function main() {
         },
     ]
 
+    const ethPrice = 3000 // e.g. 1 ETH = 3000 USD
+    const avaxPrice = 30 // e.g. 1 AVAX = 30 USD
+
     for (const network of networks) {
         console.log(`\n>>> Estimating for ${network.name} >>>`)
 
@@ -27,7 +32,6 @@ async function main() {
             const currentGasPrice = await provider.getGasPrice()
             console.log(`>>> Current gas price >>> ${ethers.utils.formatUnits(currentGasPrice, 'gwei')} gwei`)
 
-            // LayerZero V2 Endpoint 주소
             const endpointAddress = network.endpointAddress
 
             console.log('>>> Estimating KRWIN deployment gas >>>')
@@ -52,9 +56,8 @@ async function main() {
                 `>>> FeeManager deployment cost >>> ${ethers.utils.formatEther(feeManagerGasEstimate.mul(currentGasPrice))} ETH/AVAX`
             )
 
-            // Wiring 가스 추정 (setPeer, setFeeManager 등)
             console.log('>>> Estimating wiring gas >>>')
-            const wiringGasEstimate = ethers.BigNumber.from('500000') // 예상값
+            const wiringGasEstimate = ethers.BigNumber.from('500000')
             console.log(`>>> Wiring gas estimate >>> ${wiringGasEstimate.toString()}`)
             console.log(
                 `>>> Wiring cost >>> ${ethers.utils.formatEther(wiringGasEstimate.mul(currentGasPrice))} ETH/AVAX`
@@ -66,26 +69,16 @@ async function main() {
             console.log(`>>> Total gas estimate >>> ${totalGas.toString()}`)
             console.log(`>>> Total deployment cost >>> ${ethers.utils.formatEther(totalCost)} ETH/AVAX`)
 
-            // USD 환산 (대략적)
-            const ethPrice = 3000 // USD (실시간 가격 확인 필요)
-            const avaxPrice = 30 // USD
             const pricePerUnit = network.chainId === 1 ? ethPrice : avaxPrice
             const totalCostUSD = parseFloat(ethers.utils.formatEther(totalCost)) * pricePerUnit
 
             console.log(`>>> Total cost in USD >>> $${totalCostUSD.toFixed(2)}`)
         } catch (error) {
-            console.error(`>>> Error estimating for ${network.name} >>>`, error.message)
+            console.error(`>>> Error estimating for ${network.name} >>>`, (error as any).message)
         }
     }
 
     console.log('\n>>> Gas estimation completed >>>')
     console.log('>>> Note: Actual costs may vary based on network conditions >>>')
-    console.log('>>> Run this script before mainnet deployment >>>')
-}
-
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error)
-        process.exit(1)
-    })
+    console.log('>>> Run this task before mainnet deployment >>>')
+})
