@@ -38,8 +38,8 @@ task('deploy:abc', 'Deploy ABC contract').setAction(async (_, hre) => {
         args: [address],
         log: true,
         waitConfirmations: 5,
-        skipIfAlreadyDeployed: false,
-        gasPrice: hre.ethers.utils.parseUnits('0.5', 'gwei'), // 0.5 gwei
+        skipIfAlreadyDeployed: true,
+        // gasPrice: hre.ethers.utils.parseUnits('0.5', 'gwei'), // 0.5 gwei
         proxy: {
             proxyContract: 'OpenZeppelinTransparentProxy',
             owner: signer.address,

@@ -13,6 +13,7 @@ task('deploy:krwin', 'Deploy KRWIN contract').setAction(async (_, hre) => {
 
     console.log(`>>> Deploying ${contractName} on network >>> ${hre.network.name}`)
     console.log(`>>> Signer address >>> ${signer.address}`)
+    console.log(`>>> deployer address >>> ${signer.address}`)
 
     const eid = hre.network.config.eid as EndpointId
     const lzNetworkName = endpointIdToNetwork(eid)
@@ -28,12 +29,17 @@ task('deploy:krwin', 'Deploy KRWIN contract').setAction(async (_, hre) => {
 
     console.log(`>>> Starting deployment...`)
 
+    console.log('>>> signer.address:', signer.address)
+    console.log('>>> initializer args:', [tokenName, tokenSymbol, signer.address, signer.address])
+    console.log('>>> constructor args:', [address])
+
     await deploy(contractName, {
         from: signer.address,
         args: [address], // lzEndpoint in OFTUpgradeable
         log: true,
-        waitConfirmations: 2,
-        skipIfAlreadyDeployed: true,
+        waitConfirmations: 3, // min 2-3 for mainnet
+        skipIfAlreadyDeployed: false,
+        // gasPrice: hre.ethers.utils.parseUnits('0.5', 'gwei'), // check before (for ethereum-mainnet)
         proxy: {
             proxyContract: 'OpenZeppelinTransparentProxy',
             owner: signer.address,

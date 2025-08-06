@@ -41,7 +41,7 @@ task('deploy:feeManager', 'Deploy FeeManager with dynamic arguments')
                 args: [],
                 log: true,
                 waitConfirmations: 2,
-                skipIfAlreadyDeployed: true,
+                skipIfAlreadyDeployed: false,
                 proxy: {
                     proxyContract: 'OpenZeppelinTransparentProxy',
                     owner: signer.address,
