@@ -7,11 +7,11 @@ import { PausableUpgradeable } from "@openzeppelin/contracts-upgradeable/utils/P
 import { ERC20PermitUpgradeable } from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 import { ERC165Upgradeable } from "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 
-import "./FeeManager.sol";
-import "./modules/TransferLimiter.sol";
-import "./modules/Blacklistable.sol";
-import "./modules/Freezable.sol";
-import "./interfaces/IFeeManager.sol";
+import "../contracts/FeeManager.sol";
+import "../contracts/modules/TransferLimiter.sol";
+import "../contracts/modules/Blacklistable.sol";
+import "../contracts/modules/Freezable.sol";
+import "../contracts/interfaces/IFeeManager.sol";
 
 contract ABC is
     Initializable,

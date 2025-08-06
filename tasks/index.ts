@@ -1,4 +1,4 @@
-export * from './deploy/abc.deploy'
+export * from '../excluded/abc.deploy'
 export * from './deploy/feeManager.deploy'
 export * from './deploy/krwin.deploy'
 export * from './get/checkAdmin'
