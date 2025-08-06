@@ -28,15 +28,15 @@ const config: HardhatUserConfig = {
         },
     },
     networks: {
-        mainnet: {
+        'ethereum-mainnet': {
             eid: EndpointId.ETHEREUM_V2_MAINNET,
             url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://eth-mainnet.g.alchemy.com/public',
-            accounts: [process.env.PRIVATE_KEY_METAMASK_2!],
+            accounts: [process.env.PRIVATE_KEY_METAMASK_3!],
         },
         'avalanche-mainnet': {
             eid: EndpointId.AVALANCHE_V2_MAINNET,
             url: process.env.RPC_URL_AVALANCHE_MAINNET || 'https://api.avax.network/ext/bc/C/rpc',
-            accounts: [process.env.PRIVATE_KEY_METAMASK_2!],
+            accounts: [process.env.PRIVATE_KEY_METAMASK_3!],
         },
         'sepolia-testnet': {
             eid: EndpointId.SEPOLIA_V2_TESTNET,

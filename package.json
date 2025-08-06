@@ -4,18 +4,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf artifacts cache out deployments",
+    "clean": "rm -rf artifacts cache out",
     "compile": "hardhat compile",
     "test": "hardhat test",
     "lint": "$npm_execpath run lint:js && $npm_execpath run lint:sol",
     "lint:fix": "eslint --fix '**/*.{js,ts,json}' && prettier --write . && solhint 'contracts/**/*.sol'",
     "lint:js": "eslint '**/*.{js,ts,json}' && prettier --check .",
     "lint:sol": "solhint 'contracts/**/*.sol'",
-    "deploy:sepolia": "npx hardhat deploy --network sepolia-testnet --tags KRWIN",
-    "deploy:base": "npx hardhat deploy --network base-testnet --tags KRWIN",
-    "deploy:fuji": "npx hardhat deploy --network fuji-testnet --tags KRWIN",
-    "deploy:avalanche": "npx hardhat deploy --network avalanche-mainnet --tags KRWIN",
-    "deploy:ethereum": "npx hardhat deploy --network mainnet --tags KRWIN"
+    "deploy": "npx hardhat deploy:krwin --network"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",

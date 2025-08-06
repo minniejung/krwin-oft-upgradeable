@@ -1,11 +1,11 @@
 {
   "exclude": ["node_modules"],
   "include": [
-    "deploy",
     "tasks",
     "testOnChain",
     "hardhat.config.ts",
-    "utils/consts/test.const.ts"
+    "utils/consts/test.const.ts",
+    "excluded/abc.deploy.ts"
   ],
   "compilerOptions": {
     "target": "es2020",

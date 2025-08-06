@@ -10,18 +10,18 @@ task('estimate:gas', 'Estimate gas costs for deployment').setAction(async (_, hr
             name: 'Ethereum Mainnet',
             chainId: 1,
             rpcUrl: process.env.RPC_URL_ETHEREUM_MAINNET,
-            endpointAddress: '0x66A71Dcef29A0fFBDBE3c6a460a3B5BC225Cd675', // V2 address
+            endpointAddress: '0x1a44076050125825900e736c501f859c50fE728c', // V2 address
         },
         {
             name: 'Avalanche Mainnet',
             chainId: 43114,
             rpcUrl: process.env.RPC_URL_AVALANCHE_MAINNET,
-            endpointAddress: '0x66A71Dcef29A0fFBDBE3c6a460a3B5BC225Cd675', // V2 address
+            endpointAddress: '0x1a44076050125825900e736c501f859c50fE728c', // V2 address
         },
     ]
 
-    const ethPrice = 3000 // e.g. 1 ETH = 3000 USD
-    const avaxPrice = 30 // e.g. 1 AVAX = 30 USD
+    const ethPrice = 3716.89 // e.g. 1 ETH = 3000 USD
+    const avaxPrice = 24 // e.g. 1 AVAX = 30 USD
 
     for (const network of networks) {
         console.log(`\n>>> Estimating for ${network.name} >>>`)

@@ -3,11 +3,11 @@ import { task } from 'hardhat/config'
 import { EndpointId, endpointIdToNetwork } from '@layerzerolabs/lz-definitions'
 import { getDeploymentAddressAndAbi } from '@layerzerolabs/lz-evm-sdk-v2'
 
-const contractName = 'KRWIN'
-const tokenName = 'KRWIN Stablecoin'
-const tokenSymbol = 'KRWIN'
+const contractName = 'ABC'
+const tokenName = 'ABC Stablecoin'
+const tokenSymbol = 'ABC'
 
-task('deploy:krwin', 'Deploy KRWIN contract').setAction(async (_, hre) => {
+task('deploy:abc', 'Deploy ABC contract').setAction(async (_, hre) => {
     const { deploy } = hre.deployments
     const signer = (await hre.ethers.getSigners())[0]
 
@@ -35,11 +35,11 @@ task('deploy:krwin', 'Deploy KRWIN contract').setAction(async (_, hre) => {
 
     await deploy(contractName, {
         from: signer.address,
-        args: [address], // lzEndpoint in OFTUpgradeable
+        args: [address],
         log: true,
-        waitConfirmations: 3, // min 2-3 for mainnet
-        skipIfAlreadyDeployed: false,
-        // gasPrice: hre.ethers.utils.parseUnits('0.5', 'gwei'), // check before (for ethereum-mainnet)
+        waitConfirmations: 5,
+        skipIfAlreadyDeployed: true,
+        // gasPrice: hre.ethers.utils.parseUnits('0.5', 'gwei'), // 0.5 gwei
         proxy: {
             proxyContract: 'OpenZeppelinTransparentProxy',
             owner: signer.address,
@@ -53,7 +53,7 @@ task('deploy:krwin', 'Deploy KRWIN contract').setAction(async (_, hre) => {
     })
 
     const deployedContract = await hre.deployments.get(contractName)
-    const contract = await hre.ethers.getContractAt('KRWIN', deployedContract.address)
+    const contract = await hre.ethers.getContractAt('ABC', deployedContract.address)
     console.log(`>>> Contract deployed at >>> ${deployedContract.address}`)
 
     try {
