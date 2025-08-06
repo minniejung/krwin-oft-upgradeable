@@ -6,7 +6,7 @@ export const getDeployedContractAddress = (networkName: string): string => {
         'base-testnet': 84532,
         'avalanche-fuji-testnet': 43113,
         'avalanche-mainnet': 43114,
-        mainnet: 1,
+        'ethereum-mainnet': 1,
     }
 
     const chainId = networkMap[networkName]

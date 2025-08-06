@@ -42,7 +42,7 @@ export const getMainnetDeployedContracts = (): OmniPointHardhat[] => {
     const contracts: OmniPointHardhat[] = []
 
     try {
-        const mainnetContract = createContractConfig('mainnet', EndpointId.ETHEREUM_V2_MAINNET)
+        const mainnetContract = createContractConfig('ethereum-mainnet', EndpointId.ETHEREUM_V2_MAINNET)
         contracts.push(mainnetContract)
         console.log('>>> ✅ Mainnet contract >>>', mainnetContract.address)
     } catch (error) {
@@ -64,7 +64,7 @@ export const createMainnetPathways = (): TwoWayConfig[] => {
     const pathways: TwoWayConfig[] = []
 
     try {
-        const mainnetContract = createContractConfig('mainnet', EndpointId.ETHEREUM_V2_MAINNET)
+        const mainnetContract = createContractConfig('ethereum-mainnet', EndpointId.ETHEREUM_V2_MAINNET)
         const avalancheContract = createContractConfig('avalanche-mainnet', EndpointId.AVALANCHE_V2_MAINNET)
 
         pathways.push(addNetworkPathway(mainnetContract, avalancheContract))
