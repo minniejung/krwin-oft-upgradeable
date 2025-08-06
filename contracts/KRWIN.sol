@@ -57,7 +57,6 @@ contract KRWIN is
         _disableInitializers();
     }
 
-    // TODO PoR
     modifier onlyWhenReserveSufficient(uint256 amount) {
         _;
     }
@@ -83,14 +82,12 @@ contract KRWIN is
         _grantRole(FUNDS_RECOVERY_ROLE, _admin);
     }
 
-    // ERC165
     function supportsInterface(
         bytes4 interfaceId
     ) public view override(AccessControlUpgradeable, ERC165Upgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 
-    // Mint & Burn
     function mint(
         address to,
         uint256 amount
@@ -143,7 +140,6 @@ contract KRWIN is
         _burn(account, amount);
     }
 
-    // Check if an account is blocked (blacklisted or frozen)
     function isBlocked(address account) public view returns (bool) {
         return isFrozen(account) || isBlacklisted(account);
     }
@@ -156,7 +152,6 @@ contract KRWIN is
         emit BlockedFundsDestroyed(account, balance);
     }
 
-    // Override transfer to add blocked checks
     function transfer(address to, uint256 amount) public virtual override returns (bool) {
         if (isBlocked(msg.sender)) revert BlockedSender(msg.sender);
         if (isBlocked(to)) revert BlockedRecipient(to);
@@ -169,14 +164,12 @@ contract KRWIN is
         return super.transferFrom(from, to, amount);
     }
 
-    // Override approve to add blocked checks
     function approve(address spender, uint256 amount) public virtual override returns (bool) {
         if (isBlocked(msg.sender)) revert BlockedSender(msg.sender);
         if (isBlocked(spender)) revert BlockedRecipient(spender);
         return super.approve(spender, amount);
     }
 
-    // Pause/unpause contract
     function pause() external onlyRole(OPERATOR_ROLE) {
         _pause();
     }
@@ -189,7 +182,6 @@ contract KRWIN is
         return paused();
     }
 
-    // Fee setters
     function setMintFee(uint256 newFee) external onlyRole(OPERATOR_ROLE) {
         if (newFee > 500) revert FeeTooHigh();
         mintFee = newFee;
@@ -209,7 +201,6 @@ contract KRWIN is
         emit FeeManagerUpdated(oldManager, newManager);
     }
 
-    // Oracle setter
     function setReserveOracle(address newOracle) external onlyRole(OPERATOR_ROLE) {
         reserveOracle = newOracle;
         emit ReserveOracleUpdated(reserveOracle, newOracle);
@@ -219,12 +210,10 @@ contract KRWIN is
         _setTransferLimitConfigs(configs);
     }
 
-    // Set peer for cross-chain communication
     function setPeer(uint32 _eid, bytes32 _peer) public override onlyOwner {
         super.setPeer(_eid, _peer);
     }
 
-    // Transfer ownership to admin
     function transferOwnership(address newOwner) public override onlyRole(DEFAULT_ADMIN_ROLE) {
         _transferOwnership(newOwner);
     }
