@@ -1,70 +1,66 @@
 # KRWIN Cross-Chain Token
 
-LayerZero를 사용한 업그레이드 가능한 크로스체인 토큰 프로젝트입니다.
+An upgradeable cross-chain token project powered by LayerZero.
 
-## 🚀 빠른 시작
+## 🚀 Quick Start
 
-### 설치
+### Installation
 
 ```bash
 npm install
 ```
 
-### 컴파일
+### Compilation
 
 ```bash
 npm run compile
 ```
 
-## 🏗️ 주요 기능
+## 🏗️ Key Features
 
-- **크로스체인 전송**: LayerZero를 통한 다중 체인 토큰 전송
-- **업그레이드 가능**: OpenZeppelin 업그레이드 패턴 사용
-- **수수료 관리**: FeeManager를 통한 유연한 수수료 설정
-- **보안 기능**: 블랙리스트, 동결, 전송 제한 등
+- Cross-chain Transfers: Send tokens across multiple chains using LayerZero
+- Upgradeable: Uses OpenZeppelin's upgradeable contract pattern
+- Fee Management: Flexible fee configuration via FeeManager
+- Security Controls: Includes blacklist, freeze, and transfer limit modules
 
-## 📁 프로젝트 구조
-```bash
-├── contracts/          # 스마트 컨트랙트
-│   ├── KRWIN.sol      # 메인 토큰 컨트랙트
-│   ├── FeeManager.sol # 수수료 관리자 
-│   ├── interfaces/     # 인터페이스 
-│   ├── modules/        # 기능 모듈들 
-│   └── types/          # 타입 정의 
-├── deploy/            # 배포 스크립트 
-├── scripts/           # 유틸리티 스크립트 
-├── tasks/             # Hardhat 태스크들 
-├── test/              # 테스트 파일 
-└── utils/             # 헬퍼 함수들 
-```
-
-## 🚀 배포
-
-### 테스트넷 배포
+## 📁 Project Structure
 
 ```bash
-# Sepolia 배포
-npm run deploy:sepolia
-
-# Base 배포
-npm run deploy:base
-
-# Fuji 배포
-npm run deploy:fuji
+├── contracts/         # Smart contracts
+│   ├── KRWIN.sol      # Main token contract
+│   ├── FeeManager.sol # Fee manager contract
+│   ├── interfaces/    # Contract interfaces
+│   ├── modules/       # Feature modules
+│   └── types/         # Type definitions
+├── tasks/             # Custom Hardhat tasks
+│   ├── deploy/        # Deployment scripts
+│   ├── ...
+├── testOnChain/       # On-chain test files
+└── utils/             # Helper utilities
 ```
 
-### 메시징 활성화
+## 🚀 Deployment
+
+### Deploy
+
+```bash
+npm run deploy {networkName}
+e.g. sepolia-testnet, ethereum-mainnet, etc...
+```
+
+### Layerzero peering
 
 ```bash
 npx hardhat lz:oapp:wire --oapp-config layerzero.config.ts
+npx hardhat lz:oapp:peers:get --oapp-config layerzero.config.ts
 ```
 
-## 📚 문서
+## 📚 Documentation
 
-- [LayerZero 문서](https://docs.layerzero.network/)
-- [OFT 표준](https://docs.layerzero.network/v2/concepts/applications/oft-standard)
-- [OApp 표준](https://docs.layerzero.network/v2/concepts/applications/oapp-standard)
+- [LayerZero Docs](https://docs.layerzero.network/)
+- [OFT Standard](https://docs.layerzero.network/v2/concepts/applications/oft-standard)
+- [OApp Standard](https://docs.layerzero.network/v2/concepts/applications/oapp-standard)
 
-## 📄 라이선스
+## 📄 License
 
 MIT
