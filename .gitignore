@@ -44,4 +44,4 @@ yarn-error.log*
 coverage/
 coverage.json
 
-.excluded
+excluded/
