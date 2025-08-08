@@ -30,7 +30,7 @@ const RPC_URL =
 
 export const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
 
-export const signer = new ethers.Wallet(process.env.PRIVATE_KEY_METAMASK as string, provider)
+export const signer = new ethers.Wallet(process.env.PRIVATE_KEY_METAMASK_1 as string, provider)
 export const contract = new ethers.Contract(contractAddress, contractAbi, signer)
 
 export const signer2 = new ethers.Wallet(process.env.PRIVATE_KEY_METAMASK_2 as string, provider)

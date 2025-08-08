@@ -107,7 +107,7 @@ describe('Burn logic', () => {
         expect(allowanceBefore.sub(allowanceAfter)).to.equal(200n)
     })
 
-    it.only('should destroy blocked funds', async () => {
+    it('should destroy blocked funds', async () => {
         const isRecoveryer = await contract.hasRole(recoveryRole, signer.address)
         console.log('>>> Is recovery role >>>', { signer: signer.address, isRecoveryer })
 
